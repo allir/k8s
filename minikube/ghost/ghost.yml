@@ -84,6 +84,13 @@ spec:
       containers:
         - name: ghost
           image: ghost:2
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 250Mi
           envFrom:
             - configMapRef:
                 name: ghost-web-config
