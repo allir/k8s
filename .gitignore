@@ -1,0 +1,6 @@
+.vagrant
+.kube
+**/*.retry
+master_init_log
+join.sh
+

@@ -1,0 +1,40 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kubernetes-dashboard
+  namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  backend:
+    serviceName: kubernetes-dashboard
+    servicePort: 80
+  rules:
+    - host: k8s.allir.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kubernetes-dashboard
+              servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-ops-view
+  namespace: default 
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    #Doesn't work with rewrite to use path-pased ingress.
+    #traefik.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: ops.k8s.allir.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kube-ops-view 
+              servicePort: 80
+
