@@ -8,5 +8,6 @@ FROM alpine
 WORKDIR /app
 COPY --from=build /go/src/app/hello .
 EXPOSE 8080
+ENV HELLO_VAR=Ármúlason
 CMD ["./hello"]
 
