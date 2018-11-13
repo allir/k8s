@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-lifecycle
+  labels:
+    app: hello-lifecycle
+spec:
+  rules:
+    - host: hello.armulason.is
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: hello-lifecycle
+            servicePort: 8080
+

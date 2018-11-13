@@ -1,31 +1,31 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello
+  name: hello-lifecycle
   labels:
-    app: hello  
+    app: hello-lifecycle
 spec:
   selector:
-    app: hello
+    app: hello-lifecycle
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
       protocol: TCP
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello
+  name: hello-lifecycle
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: hello
+      app: hello-lifecycle
   template:
     metadata:
       labels:
-        app: hello
+        app: hello-lifecycle
     spec:
       terminationGracePeriodSeconds: 30
       initContainers:
@@ -34,7 +34,7 @@ spec:
           command:       ['sh', '-c', 'echo $(date +%H:%M:%S): InitContainer is Running | tee -a /timing  && sleep 10']
       containers:
         - name: lifecycle-container
-          image: nginx
+          image: allir/hello-armulason
           readinessProbe:
             exec:
               command: ['sh', '-c', 'echo $(date +%H:%M:%S): readinessProbe >> /timing && test -f /tmp/ready']
@@ -43,7 +43,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 5
@@ -55,3 +55,4 @@ spec:
             preStop:
               exec:
                 command: ['sh', '-c', 'echo $(date +%H:%M:%S): preStop >> /timing && sleep 10 && rm -f /tmp/ready /tmp/live && echo $(date +%H:%M:%S): end preStop >> /timing']
+

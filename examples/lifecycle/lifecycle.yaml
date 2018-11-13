@@ -40,3 +40,4 @@ spec:
             preStop:
               exec:
                 command: ['sh', '-c', 'echo $(date +%H:%M:%S): preStop >> /timing && sleep 10 && rm -f /tmp/ready /tmp/live && echo $(date +%H:%M:%S): end preStop >> /timing']
+
