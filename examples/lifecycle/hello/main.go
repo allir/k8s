@@ -8,13 +8,20 @@ import(
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-  title := os.Getenv("HELLO_VAR")
+	
+	hostname, err := os.Hostname()
+	if err != nil {
+    panic(err)
+	}
+	
+	title := os.Getenv("HELLO_VAR")
   if title == "" {
-    title = "Ármúlason"
+    title = "Hello app"
   }
 	
   log.Println("Writing response with title = " + title)
-	fmt.Fprintf(w, "Hello from " + title + "\nYou've requested %s\n", r.URL.Path) 
+	fmt.Fprintf(w, "Hello from " + title + "\nYou've requested %s\n\n\n\n\nServing from " + hostname, r.URL.Path) 
+
 }
 
 func main() {

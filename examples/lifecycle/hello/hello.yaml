@@ -34,7 +34,7 @@ spec:
           command:       ['sh', '-c', 'echo $(date +%H:%M:%S): InitContainer is Running | tee -a /timing  && sleep 10']
       containers:
         - name: lifecycle-container
-          image: allir/hello-armulason:v1
+          image: allir/:lifecycle:v1
           readinessProbe:
             exec:
               command: ['sh', '-c', 'echo $(date +%H:%M:%S): readinessProbe >> /timing && test -f /tmp/ready']

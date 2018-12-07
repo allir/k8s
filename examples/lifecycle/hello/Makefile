@@ -1,5 +1,5 @@
 NS ?= allir
-IMAGE_NAME ?= hello-armulason
+IMAGE_NAME ?= lifecycle 
 IMAGE_TAG ?= latest
 
 .PHONY: help
